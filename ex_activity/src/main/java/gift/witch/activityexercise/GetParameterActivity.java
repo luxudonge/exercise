@@ -1,11 +1,14 @@
 package gift.witch.activityexercise;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -21,15 +24,40 @@ public class GetParameterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_parameter);
+        /**
+         *
+         * 分别获取String，和序列化的值
+         *
+         */
         String string = this.getIntent().getStringExtra("STRING_DATA");
         GetParameterData data = (GetParameterData)this.getIntent().getSerializableExtra("DATA");
         GetParameterData1 data1 = (GetParameterData1)this.getIntent().getParcelableExtra("DATA1");
+
+
         TextView stringTV = (TextView)findViewById(R.id.string_tv);
         stringTV.setText(String.format("String: %s",string));
         TextView dataTV = (TextView)findViewById(R.id.data_tv);
         dataTV.setText(String.format("DATA: %s",data.aShort));
         TextView data1TV = (TextView)findViewById(R.id.data1_tv);
         data1TV.setText(String.format("DATA1: age:%d name:%s ",data1.getAge(),data1.getName()));
+
+
+        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                /**
+                 * 在这里返回数据
+                 * 如果没有调用finish将不会调用上一个activity中的onActivityResult
+                 */
+                Intent intent = new Intent();
+                intent.putExtra("RESULT","i am RESULT DATA");
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
+
+
         Log.d(TAG,"onCreate");
     }
 
@@ -89,7 +117,12 @@ public class GetParameterActivity extends AppCompatActivity {
     }
 
 
-
+    /**
+     *
+     * Serializable，android自带的序列化接口，需要实现writeToParcel和CREATOR类
+     * 相比Serializable要复杂点，但是效率会相对较要
+     *
+     */
     public static class GetParameterData implements Serializable{
 
         private short aShort = 1;
@@ -104,6 +137,12 @@ public class GetParameterActivity extends AppCompatActivity {
     }
 
 
+    /**
+     *
+     * Parcelable，android自带的序列化接口，需要实现writeToParcel和CREATOR类
+     * 相比Serializable要复杂点，但是效率会相对较要
+     *
+     */
     public static class GetParameterData1 implements Parcelable{
 
         private String name;

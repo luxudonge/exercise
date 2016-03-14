@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,7 +18,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         Log.d(TAG, "onCreate");
+
+        /**
+         *  启动下一个Activity
+         */
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -25,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        /**
+         * 启动下一个activity并传递多个参数
+         */
         findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -34,14 +43,31 @@ public class MainActivity extends AppCompatActivity {
 
                 GetParameterActivity.GetParameterData data = new GetParameterActivity.GetParameterData();
                 data.setaShort((short) 520);
-                intent.putExtra("DATA",data);
+                intent.putExtra("DATA", data);
                 GetParameterActivity.GetParameterData1 data1 = new GetParameterActivity.GetParameterData1();
                 data1.setAge(12);
                 data1.setName("Alex.Lu");
                 intent.putExtra("DATA1",data1);
-                startActivity(intent);
+                startActivityForResult(intent,0);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 0){
+
+            /***
+             * RESULT_OK : 成功
+             * RESULT_CANCELED : 取消，默认取消
+             * RESULT_FIRST_USER :
+             */
+            if(resultCode == RESULT_OK){
+                String msg = data.getStringExtra("RESULT");
+                Toast.makeText(this,msg,Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     @Override

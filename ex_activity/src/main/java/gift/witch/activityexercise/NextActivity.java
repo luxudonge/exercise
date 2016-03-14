@@ -5,6 +5,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+
+/**
+ *
+ * 配置
+ * android:configChanges="orientation|screenSize|keyboardHidden"
+ * 在翻转，屏幕变化的时候只会调用onConfigurationChanged，而不会再调用activity的生命周期
+ *
+ */
 public class NextActivity extends AppCompatActivity {
 
 
