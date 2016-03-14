@@ -1,1 +1,1 @@
-include ':app', ':resexercise'
+include ':app', ':resexercise', ':ex_activity'
