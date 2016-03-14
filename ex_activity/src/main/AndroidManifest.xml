@@ -18,7 +18,10 @@
         </activity>
         <activity
             android:name=".NextActivity"
-            android:label="@string/title_activity_next"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation|screenSize|keyboardHidden"></activity>
+        <activity
+            android:name=".GetParameterActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="orientation|screenSize|keyboardHidden"></activity>
     </application>

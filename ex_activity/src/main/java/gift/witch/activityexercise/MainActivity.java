@@ -17,13 +17,31 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Log.d(TAG, "onCreate");
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,NextActivity.class));
+                startActivity(new Intent(MainActivity.this, NextActivity.class));
             }
         });
-        Log.d(TAG, "onCreate");
+
+        findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, GetParameterActivity.class);
+                intent.putExtra("STRING_DATA", "is String");
+
+                GetParameterActivity.GetParameterData data = new GetParameterActivity.GetParameterData();
+                data.setaShort((short) 520);
+                intent.putExtra("DATA",data);
+                GetParameterActivity.GetParameterData1 data1 = new GetParameterActivity.GetParameterData1();
+                data1.setAge(12);
+                data1.setName("Alex.Lu");
+                intent.putExtra("DATA1",data1);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
